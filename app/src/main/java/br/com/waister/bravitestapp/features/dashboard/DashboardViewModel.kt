@@ -1,4 +1,4 @@
-package br.com.waister.bravitestapp.ui.dashboard
+package br.com.waister.bravitestapp.features.dashboard
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

@@ -1,4 +1,4 @@
-package br.com.waister.bravitestapp.ui.notifications
+package br.com.waister.bravitestapp.features.notifications
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

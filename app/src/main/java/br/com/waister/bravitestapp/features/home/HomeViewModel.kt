@@ -21,11 +21,13 @@ class HomeViewModel(private val activityService: ActivityService) : ViewModel() 
         _activity.value = ViewState.Error(Throwable("Ocorreu um erro desconhecido, tente novamente"))
     }
 
+    var typeSelected: String? = null
+
     init {
-        getAnActivity()
+        getNewActivity()
     }
 
-    fun getAnActivity() {
+    fun getNewActivity() {
         viewModelScope.launch(activitiesExceptionHandler) {
             _activity.value = ViewState.Loading
 
@@ -36,5 +38,9 @@ class HomeViewModel(private val activityService: ActivityService) : ViewModel() 
             else
                 ViewState.Error(Throwable())
         }
+    }
+
+    fun startActivity() {
+
     }
 }

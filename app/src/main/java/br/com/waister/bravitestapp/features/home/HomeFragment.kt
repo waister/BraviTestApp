@@ -4,6 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.Filter
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import br.com.waister.bravitestapp.databinding.FragmentHomeBinding
 import br.com.waister.bravitestapp.models.ActivityResponse
@@ -18,11 +21,11 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private val viewModel by viewModel<HomeViewModel>()
+    private val activityTypes =
+        listOf("education", "recreational", "social", "diy", "charity", "cooking", "relaxation", "music", "busywork")
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
@@ -50,31 +53,65 @@ class HomeFragment : Fragment() {
 
     private fun setupListeners() = with(binding) {
         refreshLayout.setOnRefreshListener {
-            viewModel.getAnActivity()
+            viewModel.getNewActivity()
             refreshLayout.isRefreshing = false
+        }
+
+        buttonStart.setOnClickListener {
+            startContainer.hide()
+            endContainer.show()
+
+            viewModel.startActivity()
+        }
+
+        buttonNext.setOnClickListener {
+            viewModel.getNewActivity()
+        }
+
+        buttonLave.setOnClickListener {
+            //viewModel.getAnActivity()
+        }
+
+        buttonFinish.setOnClickListener {
+            //viewModel.getAnActivity()
+        }
+
+        spinnerType.run {
+            setAdapter(object :
+                ArrayAdapter<String>(requireContext(), android.R.layout.simple_list_item_1, activityTypes) {
+                override fun getFilter(): Filter {
+                    return object : Filter() {
+                        override fun performFiltering(constraint: CharSequence?) = null
+                        override fun publishResults(constraint: CharSequence?, results: FilterResults?) = Unit
+                    }
+                }
+            })
+            addTextChangedListener {
+                val typeChanged = viewModel.typeSelected != it.toString()
+                viewModel.typeSelected = it.toString()
+                if (typeChanged) viewModel.getNewActivity()
+            }
+            setText(viewModel.typeSelected, false)
         }
     }
 
     private fun onLoading(loading: Boolean) = with(binding) {
-        if (textHome.text.isEmpty())
-            initialLoading.isVisible(loading)
-        else
-            reloadLoading.isVisible(loading)
+        shimmerActivity.isVisible(loading)
 
-        if (loading) textHome.hide()
+        if (loading) {
+            contentContainer.hide()
+            startContainer.show()
+            endContainer.hide()
+        }
     }
 
     private fun onError(error: Throwable) = with(binding) {
-        textHome.run {
-            text = error.message
-            show()
-        }
+        activityText.text = error.message
     }
 
     private fun onSuccess(response: ActivityResponse) = with(binding) {
-        textHome.run {
-            text = response.toString()
-            show()
-        }
+        contentContainer.show()
+
+        activityText.text = response.activity
     }
 }

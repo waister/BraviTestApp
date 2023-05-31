@@ -3,4 +3,9 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="select_by_type">Selecione por tipo</string>
+    <string name="button_start_activity">Iniciar atividade</string>
+    <string name="button_finish_activity">Concluir atividade</string>
+    <string name="button_leave_activity">Desistir da atividade</string>
+    <string name="button_next_activity">Próxima atividade</string>
 </resources>

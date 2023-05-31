@@ -8,7 +8,7 @@ interface ActivityService {
 
     @GET("activity")
     suspend fun getRandom(
-        @Query("type") type: String
+        @Query("type") type: String?
     ): Response<ActivityResponse>
 
 }

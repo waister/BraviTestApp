@@ -25,7 +25,7 @@ class HomeViewModel(private val activityService: ActivityService) : ViewModel() 
         getAnActivity()
     }
 
-    private fun getAnActivity() {
+    fun getAnActivity() {
         viewModelScope.launch(activitiesExceptionHandler) {
             _activity.value = ViewState.Loading
 

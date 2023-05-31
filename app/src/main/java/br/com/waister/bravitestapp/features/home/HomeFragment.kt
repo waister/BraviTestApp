@@ -8,6 +8,9 @@ import androidx.fragment.app.Fragment
 import br.com.waister.bravitestapp.databinding.FragmentHomeBinding
 import br.com.waister.bravitestapp.models.ActivityResponse
 import br.com.waister.bravitestapp.utils.ViewState
+import br.com.waister.bravitestapp.utils.hide
+import br.com.waister.bravitestapp.utils.isVisible
+import br.com.waister.bravitestapp.utils.show
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : Fragment() {
@@ -36,6 +39,8 @@ class HomeFragment : Fragment() {
                 is ViewState.Success -> onSuccess(event.value)
             }
         }
+
+        setupListeners()
     }
 
     override fun onDestroyView() {
@@ -43,15 +48,33 @@ class HomeFragment : Fragment() {
         _binding = null
     }
 
-    private fun onLoading(loading: Boolean) {
-        if (loading) binding.textHome.text = "Carregando..."
+    private fun setupListeners() = with(binding) {
+        refreshLayout.setOnRefreshListener {
+            viewModel.getAnActivity()
+            refreshLayout.isRefreshing = false
+        }
     }
 
-    private fun onError(error: Throwable) {
-        binding.textHome.text = error.message
+    private fun onLoading(loading: Boolean) = with(binding) {
+        if (textHome.text.isEmpty())
+            initialLoading.isVisible(loading)
+        else
+            reloadLoading.isVisible(loading)
+
+        if (loading) textHome.hide()
     }
 
-    private fun onSuccess(response: ActivityResponse) {
-        binding.textHome.text = response.toString()
+    private fun onError(error: Throwable) = with(binding) {
+        textHome.run {
+            text = error.message
+            show()
+        }
+    }
+
+    private fun onSuccess(response: ActivityResponse) = with(binding) {
+        textHome.run {
+            text = response.toString()
+            show()
+        }
     }
 }

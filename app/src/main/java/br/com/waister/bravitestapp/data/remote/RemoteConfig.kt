@@ -19,7 +19,6 @@ class RemoteConfig<T>(
     fun getApiService(): T {
         val httpClient = OkHttpClient.Builder()
 
-        addInterceptorByPass(httpClient)
         setTimeout(httpClient)
 
         if (BuildConfig.DEBUG) {
@@ -35,13 +34,6 @@ class RemoteConfig<T>(
             .client(httpClient.build())
             .build()
             .create(service)
-    }
-
-    private fun addInterceptorByPass(httpClient: OkHttpClient.Builder) {
-        httpClient.addInterceptor { chain ->
-            val request = chain.request().newBuilder().build()
-            chain.proceed(request)
-        }
     }
 
     private fun setTimeout(httpClient: OkHttpClient.Builder, timeout: Long = 30) {

@@ -6,6 +6,6 @@ import org.koin.dsl.module
 
 val serviceModule = module {
 
-    single { RemoteConfig(ActivityService::class.java, endPoint = "/activity").getApiService() }
+    single { RemoteConfig(ActivityService::class.java, endPoint = "/").getApiService() }
 
 }

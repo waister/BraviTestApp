@@ -6,9 +6,9 @@ import retrofit2.http.*
 
 interface ActivityService {
 
-    @GET("/{type}")
+    @GET("activity")
     suspend fun getRandom(
-        @Path("type") type: String
+        @Query("type") type: String
     ): Response<ActivityResponse>
 
 }

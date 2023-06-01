@@ -10,6 +10,10 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import br.com.waister.bravitestapp.databinding.FragmentHomeBinding
 import br.com.waister.bravitestapp.models.ActivityResponse
+import br.com.waister.bravitestapp.utils.ACTIVITY_TYPES
+import br.com.waister.bravitestapp.utils.STATUS_ABORTED
+import br.com.waister.bravitestapp.utils.STATUS_FINISHED
+import br.com.waister.bravitestapp.utils.STATUS_STARTED
 import br.com.waister.bravitestapp.utils.ViewState
 import br.com.waister.bravitestapp.utils.hide
 import br.com.waister.bravitestapp.utils.isVisible
@@ -21,8 +25,6 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private val viewModel by viewModel<HomeViewModel>()
-    private val activityTypes =
-        listOf("education", "recreational", "social", "diy", "charity", "cooking", "relaxation", "music", "busywork")
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -58,10 +60,8 @@ class HomeFragment : Fragment() {
         }
 
         buttonStart.setOnClickListener {
-            startContainer.hide()
-            endContainer.show()
-
-            viewModel.startActivity()
+            setupStartedViews(true)
+            viewModel.startActivity(STATUS_STARTED)
         }
 
         buttonNext.setOnClickListener {
@@ -69,16 +69,18 @@ class HomeFragment : Fragment() {
         }
 
         buttonLave.setOnClickListener {
-            //viewModel.getAnActivity()
+            viewModel.updateActivity(STATUS_ABORTED)
+            viewModel.getNewActivity()
         }
 
         buttonFinish.setOnClickListener {
-            //viewModel.getAnActivity()
+            viewModel.updateActivity(STATUS_FINISHED)
+            viewModel.getNewActivity()
         }
 
         spinnerType.run {
             setAdapter(object :
-                ArrayAdapter<String>(requireContext(), android.R.layout.simple_list_item_1, activityTypes) {
+                ArrayAdapter<String>(requireContext(), android.R.layout.simple_list_item_1, ACTIVITY_TYPES) {
                 override fun getFilter(): Filter {
                     return object : Filter() {
                         override fun performFiltering(constraint: CharSequence?) = null
@@ -93,16 +95,19 @@ class HomeFragment : Fragment() {
             }
             setText(viewModel.typeSelected, false)
         }
+
+        setupStartedViews(viewModel.statedActivity != null)
+    }
+
+    private fun setupStartedViews(started: Boolean) = with(binding) {
+        startContainer.isVisible(!started)
+        endContainer.isVisible(started)
     }
 
     private fun onLoading(loading: Boolean) = with(binding) {
         shimmerActivity.isVisible(loading)
 
-        if (loading) {
-            contentContainer.hide()
-            startContainer.show()
-            endContainer.hide()
-        }
+        if (loading) contentContainer.hide()
     }
 
     private fun onError(error: Throwable) = with(binding) {
@@ -110,8 +115,10 @@ class HomeFragment : Fragment() {
     }
 
     private fun onSuccess(response: ActivityResponse) = with(binding) {
+        activityText.text = response.activity
+
         contentContainer.show()
 
-        activityText.text = response.activity
+        setupStartedViews(viewModel.statedActivity != null)
     }
 }

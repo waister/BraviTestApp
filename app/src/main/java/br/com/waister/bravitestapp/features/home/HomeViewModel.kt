@@ -24,7 +24,7 @@ class HomeViewModel(private val activityService: ActivityService) : ViewModel() 
 
     private val activitiesExceptionHandler = CoroutineExceptionHandler { _, throwable ->
         if (BuildConfig.DEBUG) throwable.printStackTrace()
-        _activity.value = ViewState.Error(Throwable("Ocorreu um erro desconhecido, tente novamente"))
+        _activity.value = ViewState.Error(Throwable("An unknown error occurred, please try again"))
     }
 
     private val realm: Realm by lazy {
@@ -32,26 +32,25 @@ class HomeViewModel(private val activityService: ActivityService) : ViewModel() 
     }
 
     var typeSelected: String = ""
-    var statedActivity: ActivityItem? = null
 
     init {
-        checkStartedActivity()
+        getNewActivity()
     }
 
-    private fun checkStartedActivity() {
+    fun getStatedActivity(): ActivityItem? {
         val items = realm.query<ActivityItem>("status == \$0", STATUS_STARTED).find()
-        statedActivity = if (items.isNotEmpty()) items.first() else null
-
-        if (statedActivity != null)
-            _activity.value = ViewState.Success(
-                ActivityResponse(activity = statedActivity!!.activityTitle, key = statedActivity!!.activityKey)
-            )
-        else
-            getNewActivity()
+        return if (items.isNotEmpty()) items.first() else null
     }
 
     fun getNewActivity() {
-        statedActivity = null
+        val statedActivity = getStatedActivity()
+
+        if (statedActivity != null) {
+            _activity.value = ViewState.Success(
+                ActivityResponse(activity = statedActivity.activityTitle, key = statedActivity.activityKey)
+            )
+            return
+        }
 
         viewModelScope.launch(activitiesExceptionHandler) {
             _activity.value = ViewState.Loading
@@ -79,8 +78,8 @@ class HomeViewModel(private val activityService: ActivityService) : ViewModel() 
     }
 
     fun updateActivity(statusToSet: Int) {
-        val currentActivity = _activity.value!!.successValue!!
-        val items = realm.query<ActivityItem>("activityKey == \$0", currentActivity.key).find()
+        val statedActivity = getStatedActivity() ?: return
+        val items = realm.query<ActivityItem>("activityKey == \$0", statedActivity.activityKey).find()
 
         if (items.isNotEmpty()) {
             realm.writeBlocking {

@@ -36,6 +36,16 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setupObservers()
+        setupListeners()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    private fun setupObservers() {
         viewModel.activity.observe(viewLifecycleOwner) { event ->
             onLoading(false)
             when (event) {
@@ -44,13 +54,6 @@ class HomeFragment : Fragment() {
                 is ViewState.Success -> onSuccess(event.value)
             }
         }
-
-        setupListeners()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     private fun setupListeners() = with(binding) {
@@ -96,7 +99,7 @@ class HomeFragment : Fragment() {
             setText(viewModel.typeSelected, false)
         }
 
-        setupStartedViews(viewModel.statedActivity != null)
+        setupStartedViews(viewModel.getStatedActivity() != null)
     }
 
     private fun setupStartedViews(started: Boolean) = with(binding) {
@@ -119,6 +122,6 @@ class HomeFragment : Fragment() {
 
         contentContainer.show()
 
-        setupStartedViews(viewModel.statedActivity != null)
+        setupStartedViews(viewModel.getStatedActivity() != null)
     }
 }

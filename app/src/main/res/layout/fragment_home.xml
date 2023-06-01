@@ -5,157 +5,168 @@
     android:id="@+id/refresh_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/pastel_white"
     tools:context=".features.home.HomeFragment">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/home_activity_vertical_margin">
+            android:layout_margin="@dimen/card_margin"
+            android:background="@color/white">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/spinner_type_layout"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                android:layout_width="@dimen/home_min_width"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/home_activity_vertical_margin"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <AutoCompleteTextView
-                    android:id="@+id/spinner_type"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:focusable="false"
-                    android:hint="@string/select_by_type"
-                    android:inputType="none" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <ProgressBar
-                android:id="@+id/activity_loading"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/home_activity_vertical_margin"
-                android:indeterminate="true"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/spinner_type_layout" />
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:id="@+id/content_container"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/home_activity_vertical_margin"
-                android:gravity="center_horizontal"
-                android:orientation="vertical"
-                android:paddingHorizontal="@dimen/activity_horizontal_margin"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/spinner_type_layout"
-                tools:visibility="visible">
+                android:layout_marginBottom="@dimen/large_views_margin">
 
-                <TextView
-                    android:id="@+id/activity_text"
-                    android:layout_width="match_parent"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/spinner_type_layout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:layout_width="@dimen/home_min_width"
                     android:layout_height="wrap_content"
-                    android:textAlignment="center"
-                    android:textColor="@color/black"
-                    android:textSize="20sp"
-                    tools:text="Do something awesome :)" />
+                    android:layout_marginTop="@dimen/large_views_margin"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/spinner_type"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:hint="@string/select_by_type"
+                        android:inputType="none" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <ProgressBar
+                    android:id="@+id/activity_loading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/large_views_margin"
+                    android:indeterminate="true"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/spinner_type_layout" />
 
                 <androidx.appcompat.widget.LinearLayoutCompat
-                    android:id="@+id/start_container"
+                    android:id="@+id/content_container"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/home_activity_vertical_margin"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical">
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/button_start"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/button_start_activity" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/button_next"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/button_margin"
-                        android:backgroundTint="@color/disabled"
-                        android:text="@string/button_next_activity"
-                        android:textColor="@color/black"
-                        android:textSize="12sp" />
-                </androidx.appcompat.widget.LinearLayoutCompat>
-
-                <androidx.appcompat.widget.LinearLayoutCompat
-                    android:id="@+id/end_container"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/home_activity_vertical_margin"
+                    android:layout_marginTop="@dimen/large_views_margin"
                     android:gravity="center_horizontal"
                     android:orientation="vertical"
-                    android:visibility="gone">
+                    android:paddingHorizontal="@dimen/activity_horizontal_margin"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/spinner_type_layout"
+                    tools:visibility="visible">
 
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/button_lave"
-                        android:layout_width="wrap_content"
+                    <TextView
+                        android:id="@+id/activity_text"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:backgroundTint="@color/disabled"
-                        android:text="@string/button_leave_activity"
+                        android:textAlignment="center"
                         android:textColor="@color/black"
-                        android:textSize="12sp" />
+                        android:textSize="20sp"
+                        tools:text="Do something awesome :)" />
 
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/button_finish"
-                        android:layout_width="wrap_content"
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:id="@+id/start_container"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/button_margin"
-                        android:text="@string/button_finish_activity" />
+                        android:layout_marginTop="@dimen/large_views_margin"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/button_start"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="@color/status_started"
+                            android:text="@string/button_start_activity" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/button_next"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/button_margin"
+                            android:backgroundTint="@color/white"
+                            android:text="@string/button_next_activity"
+                            android:textColor="@color/black"
+                            android:textSize="12sp" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:id="@+id/end_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/large_views_margin"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/button_lave"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="@color/status_aborted"
+                            android:text="@string/button_leave_activity"
+                            android:textColor="@color/white"
+                            android:textSize="12sp" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/button_finish"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/button_margin"
+                            android:backgroundTint="@color/status_finished"
+                            android:text="@string/button_finish_activity" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
                 </androidx.appcompat.widget.LinearLayoutCompat>
-            </androidx.appcompat.widget.LinearLayoutCompat>
 
-            <com.facebook.shimmer.ShimmerFrameLayout
-                android:id="@+id/shimmer_activity"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
-                android:layout_marginTop="@dimen/home_activity_vertical_margin"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/spinner_type_layout">
-
-                <androidx.appcompat.widget.LinearLayoutCompat
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/shimmer_activity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical">
+                    android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+                    android:layout_marginTop="@dimen/large_views_margin"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/spinner_type_layout">
 
-                    <View
+                    <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:background="@color/shimmer_gray" />
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
 
-                    <View
-                        android:layout_width="200dp"
-                        android:layout_height="42dp"
-                        android:layout_marginTop="@dimen/home_activity_vertical_margin"
-                        android:background="@color/shimmer_gray" />
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp"
+                            android:background="@color/shimmer_gray" />
 
-                    <View
-                        android:layout_width="200dp"
-                        android:layout_height="42dp"
-                        android:layout_marginTop="10dp"
-                        android:background="@color/shimmer_gray" />
-                </androidx.appcompat.widget.LinearLayoutCompat>
-            </com.facebook.shimmer.ShimmerFrameLayout>
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                        <View
+                            android:layout_width="200dp"
+                            android:layout_height="42dp"
+                            android:layout_marginTop="@dimen/large_views_margin"
+                            android:background="@color/shimmer_gray" />
+
+                        <View
+                            android:layout_width="200dp"
+                            android:layout_height="42dp"
+                            android:layout_marginTop="10dp"
+                            android:background="@color/shimmer_gray" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+                </com.facebook.shimmer.ShimmerFrameLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
     </androidx.core.widget.NestedScrollView>
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

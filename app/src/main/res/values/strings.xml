@@ -1,10 +1,27 @@
 <resources>
     <string name="app_name">Bravi Test App</string>
     <string name="title_home">Home</string>
-    <string name="title_history">Histórico</string>
-    <string name="select_by_type">Selecione por tipo</string>
-    <string name="button_start_activity">Iniciar atividade</string>
-    <string name="button_finish_activity">Concluir atividade</string>
-    <string name="button_leave_activity">Desistir da atividade</string>
-    <string name="button_next_activity">Próxima atividade</string>
+    <string name="title_history">History</string>
+    <string name="select_by_type">Select by type</string>
+    <string name="button_start_activity">Start activity</string>
+    <string name="button_finish_activity">Complete activity</string>
+    <string name="button_leave_activity">Leave activity</string>
+    <string name="button_next_activity">Next activity</string>
+    <string name="empty_activities_history">No activity started</string>
+    <string name="history_key">#%1$s</string>
+    <string name="status_started">In progress</string>
+    <string name="status_aborted">Abandoned</string>
+    <string name="status_finished">Finished</string>
+    <plurals name="time_in_hours">
+        <item quantity="one">%d hour</item>
+        <item quantity="other">%d hours</item>
+    </plurals>
+    <plurals name="time_in_minutes">
+        <item quantity="one">%d minute</item>
+        <item quantity="other">%d minutes</item>
+    </plurals>
+    <plurals name="time_in_seconds">
+        <item quantity="one">%d second</item>
+        <item quantity="other">%d seconds</item>
+    </plurals>
 </resources>

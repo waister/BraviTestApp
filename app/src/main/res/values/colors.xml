@@ -11,4 +11,10 @@
     <color name="menu_unchecked">#80FFFFFF</color>
     <color name="disabled">#A5AAB1</color>
     <color name="shimmer_gray">#778899</color>
+    <color name="text_gray">#7F858D</color>
+    <color name="text_gray_dark">#42464D</color>
+    <color name="pastel_white">#F2F3F4</color>
+    <color name="status_started">#2196F3</color>
+    <color name="status_finished">#4CAF50</color>
+    <color name="status_aborted">#FF9800</color>
 </resources>

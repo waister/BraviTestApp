@@ -1,8 +1,7 @@
 <resources>
     <string name="app_name">Bravi Test App</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_history">Histórico</string>
     <string name="select_by_type">Selecione por tipo</string>
     <string name="button_start_activity">Iniciar atividade</string>
     <string name="button_finish_activity">Concluir atividade</string>
